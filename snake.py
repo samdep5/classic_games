@@ -6,6 +6,17 @@ score = 0
 high_score = 0
 delay = .1
 
+def turtled(name, color, shape, xgoto, ygoto):
+    name.color(color)
+    name.speed(0)
+    name.shape(shape)
+    name.penup()
+    name.goto(xgoto, ygoto)
+
+def scored():
+    top.write("Score: {} High score: {}".format(score, high_score),align="center", font=("Courier", 24, "normal"))
+
+
 # Set up background
 win = turtle.Screen()
 win.bgcolor('black')
@@ -15,32 +26,20 @@ win.tracer(0)
 
 #snake 
 snake = turtle.Turtle()
-snake.speed(0)
-snake.shape('circle')
-snake.color('red')
-snake.penup()
-snake.goto(0,0)
+turtled(snake, 'red', 'circle', 0, 0)
 snake.direction = "stop"
 
 #food to eat
 food = turtle.Turtle()
-food.speed(0)
-food.shape('square')
-food.color('green')
-food.penup()
-food.goto(0,100)
+turtled(food, 'green', 'square', 0, 100)
 
 parts = []
 
 # write the score
 top = turtle.Turtle()
-top.speed(0)
-top.shape('circle')
-top.color('white')
-top.penup()
+turtled(top, 'white', 'circle', 0, 265)
 top.hideturtle()
-top.goto(0,270)
-top.write("Score: 0 High score: 0", align = "center", font=("Garamond", 24, "normal"))
+scored()
 
 # Directions for your snake 
 def up():
@@ -94,8 +93,8 @@ while True:
         score = 0
         delay = .1
         top.clear()
-        top.write("Score: {} High score: {}".format(score, high_score),align="center", font=("Courier", 24, "normal"))
-    
+        scored()
+
     if snake.distance(food) < 20:
         # Eat food 
         food.goto(random.randint(-290, 290), random.randint(-290, 290))
@@ -113,7 +112,7 @@ while True:
         if score > high_score: 
             high_score = score
         top.clear()
-        top.write("Score: {} High score: {}".format(score, high_score),align="center", font=("Garamond", 24, "normal"))
+        scored()
 
     # Trail the body behind the snake
     for i in range(len(parts) - 1, 0, -1):
@@ -136,11 +135,5 @@ while True:
             score = 0
             delay = .1
             top.clear()
-            top.write("Score: {} High score: {}".format(score,high_score), align="center", font=("Courier", 24, "normal"))
+            scored()
     time.sleep(delay)
-win.mainloop()
-
-
-
-
-
